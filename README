@@ -1,0 +1,14 @@
+# V2SV
+
+V2SV is a basic Verilog to SystemVerilog converter. While all Verilog code is valid SystemVerilog code as well, this tool aims to modify Verilog code to take advantage of new SystemVerilog constructs.
+
+## Features
+
+This tool will take advantage of these SystemVerilog constructs, which offer improvements over their Verilog counterparts:
+* The `logic` datatype (as opposed to `wire` and `reg`)
+* `always_comb` and `always_ff` blocks (as opposed to `always`, which may cause unintended behavior if used incorrectly)
+* Enumerations (as opposed to `localparam`)
+
+## Usage
+
+To be filled in.
