@@ -71,7 +71,12 @@ def __replace_with_logic_body(body_string, debug=False):
             if debug:
                 print("Replaced:\n{}\nwith\n{}\n\n".format(" ".join(words), new_statement))
         elif words[0] == "wire":
-            if "=" in words: # FIXME: this assumes that the = is surrounded by whitespace
+            # first check if this is an assignment
+            assignment = False
+            for word in words:
+                if "=" in word:
+                    assignment = True
+            if assignment:
                 # assignment is on same line as declaration, so need to split into two lines
                 if ":" in words[1]:
                     # wire is an array
