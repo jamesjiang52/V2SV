@@ -71,12 +71,7 @@ def __replace_with_logic_body(body_string, debug=False):
             if debug:
                 print("Replaced:\n{}\nwith\n{}\n\n".format(" ".join(words), new_statement))
         elif words[0] == "wire":
-            # first check if this is an assignment
-            assignment = False
-            for word in words:
-                if "=" in word:
-                    assignment = True
-            if assignment:
+            if "=" in statement:
                 # assignment is on same line as declaration, so need to split into two lines
                 if ":" in words[1]:
                     # wire is an array
@@ -84,10 +79,11 @@ def __replace_with_logic_body(body_string, debug=False):
                 else:
                     signal = word[1]
                 # first line is declaration using logic
-                first_line_words = words[0:words.index("=")]
+                first_line_words = statement[:statement.index("=")].split()
+                first_line_words[0] = "logic"
                 new_statement_1 = " ".join(first_line_words)
                 # second line is assignment
-                second_line_words_append = words[words.index("=") + 1:-1]
+                second_line_words_append = statement[statement.index("=") + 1:]
                 new_statement_2 = "assign {} = {}".format(signal, " ".join(second_line_words_append))
                 buffer += "{};\n{};\n".format(new_statement_1, new_statement_2)
                 if debug:
